@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Stripe Texas - AI Estimate Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .status-badge {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .progress-bar {
+            transition: width 1s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-white/20 p-2 rounded-lg backdrop-blur">
+                        <i data-lucide="zap" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Custom Stripe Texas</h1>
+                        <p class="text-sm text-white/80">AI-Powered Estimate Management</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-white/80">Daily Budget</p>
+                        <p class="text-xl font-semibold">$3.42 / $10.00</p>
+                    </div>
+                    <button class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg backdrop-blur transition flex items-center space-x-2">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                        <span>Settings</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-8">
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Stat Card 1 -->
+            <div class="glass rounded-xl shadow-lg p-6 card-hover animate-in">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-blue-500/10 p-3 rounded-lg">
+                        <i data-lucide="mail" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">+12%</span>
+                </div>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">Estimates Today</h3>
+                <p class="text-3xl font-bold text-gray-900">8</p>
+                <div class="mt-4 flex items-center text-sm text-gray-600">
+                    <span class="text-green-600 font-medium">3 auto-sent</span>
+                    <span class="mx-2">•</span>
+                    <span>5 pending</span>
+                </div>
+            </div>
+
+            <!-- Stat Card 2 -->
+            <div class="glass rounded-xl shadow-lg p-6 card-hover animate-in" style="animation-delay: 0.1s">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-purple-500/10 p-3 rounded-lg">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-purple-600"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2 py-1 rounded-full">94%</span>
+                </div>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">Accuracy Score</h3>
+                <p class="text-3xl font-bold text-gray-900">92.4%</p>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-purple-600 h-2 rounded-full progress-bar" style="width: 92.4%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat Card 3 -->
+            <div class="glass rounded-xl shadow-lg p-6 card-hover animate-in" style="animation-delay: 0.2s">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-green-500/10 p-3 rounded-lg">
+                        <i data-lucide="dollar-sign" class="w-6 h-6 text-green-600"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-1 rounded-full">MTD</span>
+                </div>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">Revenue Potential</h3>
+                <p class="text-3xl font-bold text-gray-900">$47.2k</p>
+                <div class="mt-4 flex items-center text-sm text-gray-600">
+                    <span>23 estimates sent</span>
+                </div>
+            </div>
+
+            <!-- Stat Card 4 -->
+            <div class="glass rounded-xl shadow-lg p-6 card-hover animate-in" style="animation-delay: 0.3s">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-orange-500/10 p-3 rounded-lg">
+                        <i data-lucide="activity" class="w-6 h-6 text-orange-600"></i>
+                    </div>
+                    <div class="status-badge">
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                </div>
+                <h3 class="text-gray-500 text-sm font-medium mb-1">System Status</h3>
+                <p class="text-3xl font-bold text-gray-900">Online</p>
+                <div class="mt-4 flex items-center text-sm text-gray-600">
+                    <span>Last check: 2m ago</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Pending Reviews -->
+                <div class="glass rounded-xl shadow-lg p-6 animate-in">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-yellow-500/10 p-2 rounded-lg">
+                                <i data-lucide="alert-circle" class="w-5 h-5 text-yellow-600"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-900">Needs Your Review</h2>
+                        </div>
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full">5 pending</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Estimate Card 1 -->
+                        <div class="border border-gray-200 rounded-lg p-4 hover:border-purple-300 transition cursor-pointer">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <h3 class="font-semibold text-gray-900">Walmart Supercenter - Restriping</h3>
+                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded">New Client</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">walmart.ops@example.com</p>
+                                </div>
+                                <span class="text-2xl font-bold text-purple-600">$8,450</span>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm mb-3">
+                                <div class="flex items-center text-gray-600">
+                                    <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+                                    <span>Received 2h ago</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
+                                    <span>Austin, TX</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-4 gap-3 mb-3 text-sm">
+                                <div>
+                                    <p class="text-gray-500 text-xs">Spaces</p>
+                                    <p class="font-semibold">287</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-xs">Linear Ft</p>
+                                    <p class="font-semibold">4,890</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-xs">Handicap</p>
+                                    <p class="font-semibold">12</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-xs">Confidence</p>
+                                    <p class="font-semibold text-yellow-600">72%</p>
+                                </div>
+                            </div>
+                            <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mb-3">
+                                <p class="text-xs text-yellow-800 font-medium mb-1">⚠️ Review Required:</p>
+                                <p class="text-xs text-yellow-700">PDF scale unclear, fire lane count uncertain</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-lg transition flex items-center justify-center space-x-2">
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                    <span>Approve & Send</span>
+                                </button>
+                                <button class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 rounded-lg transition flex items-center justify-center space-x-2">
+                                    <i data-lucide="edit" class="w-4 h-4"></i>
+                                    <span>Edit</span>
+                                </button>
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-lg transition">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Estimate Card 2 -->
+                        <div class="border border-gray-200 rounded-lg p-4 hover:border-purple-300 transition cursor-pointer">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <h3 class="font-semibold text-gray-900">Medical Plaza - Full Lot</h3>
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Repeat Client</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">facilities@medicalplaza.com</p>
+                                </div>
+                                <span class="text-2xl font-bold text-purple-600">$3,200</span>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm mb-3">
+                                <div class="flex items-center text-gray-600">
+                                    <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+                                    <span>Received 4h ago</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
+                                    <span>Dallas, TX</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-4 gap-3 mb-3 text-sm">
+                                <div>
+                                    <p class="text-gray-500 text-xs">Spaces</p>
+                                    <p class="font-semibold">120</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-xs">Linear Ft</p>
+                                    <p class="font-semibold">2,100</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-xs">Handicap</p>
+                                    <p class="font-semibold">6</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-xs">Confidence</p>
+                                    <p class="font-semibold text-orange-600">68%</p>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 rounded p-3 mb-3">
+                                <p class="text-xs text-blue-800 font-medium mb-1">💡 Client History:</p>
+                                <p class="text-xs text-blue-700">4 previous projects, avg $3.1k, 100% on-time payment</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-lg transition flex items-center justify-center space-x-2">
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                    <span>Approve & Send</span>
+                                </button>
+                                <button class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 rounded-lg transition flex items-center justify-center space-x-2">
+                                    <i data-lucide="edit" class="w-4 h-4"></i>
+                                    <span>Edit</span>
+                                </button>
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-lg transition">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="glass rounded-xl shadow-lg p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">Recent Activity</h2>
+                        <button class="text-sm text-purple-600 hover:text-purple-700 font-medium">View All</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-green-100 p-2 rounded-lg">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-green-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900">Estimate auto-sent</p>
+                                <p class="text-xs text-gray-600">Target Retail Center • $5,240 • 15 minutes ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-blue-100 p-2 rounded-lg">
+                                <i data-lucide="mail" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900">New estimate request</p>
+                                <p class="text-xs text-gray-600">Office Complex • Pending analysis • 32 minutes ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-purple-100 p-2 rounded-lg">
+                                <i data-lucide="trending-up" class="w-4 h-4 text-purple-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900">Agent improved accuracy</p>
+                                <p class="text-xs text-gray-600">Learning from 12 feedbacks • 2 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Cost Tracker -->
+                <div class="glass rounded-xl shadow-lg p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">Cost Tracking</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-600">Today</span>
+                                <span class="font-semibold text-gray-900">$3.42 / $10.00</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-gradient-to-r from-green-500 to-blue-500 h-2.5 rounded-full progress-bar" style="width: 34.2%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-600">This Month</span>
+                                <span class="font-semibold text-gray-900">$87.30 / $300.00</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2.5 rounded-full progress-bar" style="width: 29.1%"></div>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-200">
+                            <p class="text-xs text-gray-500 mb-2">Cost Breakdown</p>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Gemini API</span>
+                                    <span class="font-medium">$2.85</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">SMS</span>
+                                    <span class="font-medium">$0.32</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Cloud Run</span>
+                                    <span class="font-medium">$0.25</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-3">
+                            <p class="text-xs text-green-800 font-medium">💰 Saved $8.40 this week</p>
+                            <p class="text-xs text-green-700 mt-1">Through caching & optimization</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Performance -->
+                <div class="glass rounded-xl shadow-lg p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">AI Performance</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Accuracy</span>
+                            <span class="text-lg font-bold text-green-600">92.4%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Auto-Send Rate</span>
+                            <span class="text-lg font-bold text-blue-600">64%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Win Rate</span>
+                            <span class="text-lg font-bold text-purple-600">38%</span>
+                        </div>
+                        <div class="pt-4 border-t border-gray-200">
+                            <canvas id="performanceChart" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="glass rounded-xl shadow-lg p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">Quick Actions</h2>
+                    <div class="space-y-2">
+                        <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg transition flex items-center justify-center space-x-2">
+                            <i data-lucide="play" class="w-5 h-5"></i>
+                            <span>Process Emails Now</span>
+                        </button>
+                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 rounded-lg transition flex items-center justify-center space-x-2">
+                            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                            <span>Sync Platforms</span>
+                        </button>
+                        <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 rounded-lg transition flex items-center justify-center space-x-2">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                            <span>Export Reports</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Performance Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Accuracy %',
+                    data: [88, 90, 89, 91, 92, 93, 92.4],
+                    borderColor: 'rgb(139, 92, 246)',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 85,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const statusBadge = document.querySelector('.status-badge div');
+            statusBadge.style.opacity = '0';
+            setTimeout(() => {
+                statusBadge.style.opacity = '1';
+            }, 500);
+        }, 2000);
+    </script>
+</body>
+</html>
