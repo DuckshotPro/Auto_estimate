@@ -420,7 +420,8 @@ app.get('/metrics', async (req, res) => {
 ### Grafana Dashboard JSON
 
 ```json
-{
+{docker compose up -d
+
   "dashboard": {
     "title": "Custom Stripe Estimates",
     "panels": [

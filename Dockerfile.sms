@@ -1,0 +1,15 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY sms-notification-module.ts ./
+
+RUN npm install -g typescript
+RUN tsc sms-notification-module.ts
+
+EXPOSE 8082
+
+CMD ["node", "sms-notification-module.js"]

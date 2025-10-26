@@ -1,0 +1,27 @@
+mutation CreateUser($displayName: String!, $email: String!) @auth(level: USER) {
+  user_insert(data: {displayName: $displayName, email: $email, createdAt_expr: "request.time"})
+}
+
+query GetEstimate($id: UUID!) @auth(level: USER) {
+  estimate(id: $id) {
+    id
+    estimateNumber
+    clientName
+    totalAmount
+  }
+}
+
+mutation UpdateEstimateStatus($id: UUID!, $status: String!) @auth(level: USER) {
+  estimate_update(key: {id: $id}, data: {status: $status, updatedAt_expr: "request.time"})
+}
+
+query ListEstimatesForUser @auth(level: USER) {
+  estimates(where: {userId_expr: "auth.uid"}) {
+    id
+    estimateNumber
+    clientName
+    totalAmount
+    createdAt
+    status
+  }
+}

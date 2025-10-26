@@ -1,0 +1,8 @@
+connectorId: example
+generate:
+  javascriptSdk:
+    - outputDir: ../../Auto_estimate/src/dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ../../Auto_estimate
+      react: false
+      angular: false

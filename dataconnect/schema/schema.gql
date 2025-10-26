@@ -1,0 +1,51 @@
+type User @table {
+  email: String!
+  displayName: String!
+  createdAt: Timestamp!
+  companyName: String
+  address: String
+  phoneNumber: String
+  logoUrl: String
+}
+
+type Estimate @table {
+  user: User!
+  clientName: String!
+  estimateNumber: String!
+  totalAmount: Float!
+  status: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  clientEmail: String
+  clientAddress: String
+  notes: String
+  discountPercentage: Float
+  taxPercentage: Float
+}
+
+type EstimateLineItem @table {
+  estimate: Estimate!
+  description: String!
+  quantity: Int!
+  unitPrice: Float!
+  lineTotal: Float!
+  itemCode: String
+}
+
+type PDFSource @table {
+  estimate: Estimate!
+  fileName: String!
+  fileUrl: String!
+  uploadedAt: Timestamp!
+  extractedText: String
+}
+
+type EmailLog @table {
+  estimate: Estimate!
+  recipientEmail: String!
+  subject: String!
+  sentAt: Timestamp!
+  status: String!
+  bodyContent: String
+  errorDetails: String
+}

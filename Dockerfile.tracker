@@ -1,0 +1,15 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY api-tracking-module.ts ./
+
+RUN npm install -g typescript
+RUN tsc api-tracking-module.ts
+
+EXPOSE 8081
+
+CMD ["node", "api-tracking-module.js"]

@@ -1,0 +1,102 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+  estimate-agent:
+    build: 
+      context: .
+      dockerfile: Dockerfile.agent
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    volumes:
+      - ./logs:/app/logs
+
+  api-tracker:
+    build:
+      context: .
+      dockerfile: Dockerfile.tracker
+    ports:
+      - "8081:8081"
+    environment:
+      - API_TRACKING_PORT=8081
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  sms-notifier:
+    build:
+      context: .
+      dockerfile: Dockerfile.sms
+    ports:
+      - "8082:8082"
+    environment:
+      - SMS_SERVICE_PORT=8082
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  security:
+    build:
+      context: .
+      dockerfile: Dockerfile.security
+    ports:
+      - "8083:8083"
+    environment:
+      - SECURITY_SERVICE_PORT=8083
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  cost-optimizer:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimizer
+    ports:
+      - "8084:8084"
+    environment:
+      - COST_OPTIMIZER_PORT=8084
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  learning-module:
+    build:
+      context: .
+      dockerfile: Dockerfile.learning
+    ports:
+      - "8085:8085"
+    environment:
+      - LEARNING_MODULE_PORT=8085
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  dashboard:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./dashboard.html:/usr/share/nginx/html/index.html
+    depends_on:
+      - estimate-agent
+      - api-tracker
+      - sms-notifier
+      - security
+      - cost-optimizer
+      - learning-module
+
+volumes:
+  redis-data:

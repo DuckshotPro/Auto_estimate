@@ -1,0 +1,26 @@
+
+{
+  "name": "custom-stripe-texas",
+  "version": "1.0.0",
+  "description": "Autonomous Email Processing System",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google/adk": "latest",
+    "@google-cloud/firestore": "latest",
+    "@google/generative-ai": "latest",
+    "express": "latest",
+    "googleapis": "latest",
+    "puppeteer": "latest",
+    "winston": "latest",
+    "@sentry/node": "latest",
+    "prom-client": "latest",
+    "node-cache": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest"
+  }
+}

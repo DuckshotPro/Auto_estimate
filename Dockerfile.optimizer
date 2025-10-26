@@ -1,0 +1,15 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY cost-optimizer-module.ts ./
+
+RUN npm install -g typescript
+RUN tsc cost-optimizer-module.ts
+
+EXPOSE 8084
+
+CMD ["node", "cost-optimizer-module.js"]

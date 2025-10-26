@@ -1,0 +1,98 @@
+mutation CreateSeedData @auth(level: PUBLIC, insecureReason: "This mutation is for seeding data and does not require authentication") @transaction {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      displayName: "demouser1",
+      email: "demouser1@example.com",
+      createdAt: "2024-04-26T12:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      displayName: "demouser2",
+      email: "demouser2@example.com",
+      createdAt: "2024-04-26T13:00:00Z"
+    }
+  ])
+  estimate_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440000",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      clientName: "client1",
+      estimateNumber: "EST-001",
+      createdAt: "2024-04-26T14:00:00Z",
+      updatedAt: "2024-04-26T14:00:00Z",
+      status: "draft",
+      totalAmount: 100.0
+    },
+    {
+      id: "650e8400-e29b-41d4-a716-446655440001",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      clientName: "client2",
+      estimateNumber: "EST-002",
+      createdAt: "2024-04-26T15:00:00Z",
+      updatedAt: "2024-04-26T15:00:00Z",
+      status: "sent",
+      totalAmount: 200.0
+    }
+  ])
+  estimateLineItem_insertMany(data: [
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440000",
+      description: "line item 1",
+      lineTotal: 50.0,
+      quantity: 1,
+      unitPrice: 50.0
+    },
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440000",
+      description: "line item 2",
+      lineTotal: 50.0,
+      quantity: 1,
+      unitPrice: 50.0
+    },
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440001",
+      description: "line item 3",
+      lineTotal: 100.0,
+      quantity: 1,
+      unitPrice: 100.0
+    },
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440001",
+      description: "line item 4",
+      lineTotal: 100.0,
+      quantity: 1,
+      unitPrice: 100.0
+    }
+  ])
+  pDFSource_insertMany(data: [
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440000",
+      fileName: "file1.pdf",
+      fileUrl: "http://example.com/file1.pdf",
+      uploadedAt: "2024-04-26T16:00:00Z"
+    },
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440001",
+      fileName: "file2.pdf",
+      fileUrl: "http://example.com/file2.pdf",
+      uploadedAt: "2024-04-26T17:00:00Z"
+    }
+  ])
+    emailLog_insertMany(data: [
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440000",
+      recipientEmail: "test@example.com",
+      sentAt: "2024-04-26T16:00:00Z",
+      status: "sent",
+      subject: "Estimate sent"
+    },
+    {
+      estimateId: "650e8400-e29b-41d4-a716-446655440001",
+      recipientEmail: "test2@example.com",
+      sentAt: "2024-04-26T17:00:00Z",
+      status: "sent",
+      subject: "Estimate sent"
+    }
+  ])
+}

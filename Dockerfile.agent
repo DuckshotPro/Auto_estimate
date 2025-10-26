@@ -1,0 +1,16 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY agent.ts ./
+COPY tools/ ./tools/
+
+RUN npm install -g typescript
+RUN tsc agent.ts
+
+EXPOSE 8080
+
+CMD ["node", "agent.js"]
